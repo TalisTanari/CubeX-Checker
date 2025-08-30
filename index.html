@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CubeX Checker</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, black, blue);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .input-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #progress-box {
+            display: none;
+            margin-left: 20px;
+            padding: 10px;
+            border: 1px solid white;
+            background: rgba(0, 0, 0, 0.5);
+            min-width: 200px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CubeX Checker</h1>
+        <div class="input-area">
+            <input type="file" id="file-input">
+            <button onclick="scanFile()">Scan</button>
+            <div id="progress-box"></div>
+        </div>
+    </div>
+
+    <script>
+        function scanFile() {
+            const fileInput = document.getElementById('file-input');
+            const progressBox = document.getElementById('progress-box');
+
+            if (!fileInput.files.length) {
+                alert('Please select a file first.');
+                return;
+            }
+
+            progressBox.style.display = 'block';
+            progressBox.innerHTML = '';
+
+            const messages = [
+                'Checking File Safety',
+                'Anti Virus Injected',
+                'CubeX Installer Done'
+            ];
+
+            let index = 0;
+
+            function showNextMessage() {
+                if (index < messages.length) {
+                    progressBox.innerHTML += messages[index] + '<br>';
+                    index++;
+                    setTimeout(showNextMessage, 2000); // 2 seconds delay
+                } else {
+                    // Final message
+                    const isSafe = Math.random() < 0.7;
+                    const finalMsg = isSafe ? 'The file is safe.' : 'The file is a virus!';
+                    progressBox.innerHTML += '<br>' + finalMsg;
+                }
+            }
+
+            showNextMessage();
+        }
+    </script>
+</body>
+</html>
